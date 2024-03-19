@@ -1,0 +1,24 @@
+<%= render "shared/menu" %>
+
+<div class="row">
+  <div class="col-sm-6 col-xs-12 page-text">
+    <h1 class="page-title"><%= @page.page_title %></h1>
+
+    <%= @page.page_body.html_safe %>
+    <br>
+    <br>
+    <div class="bottom-links" data-no-turbolink>
+    <%= link_to t("back"), wedding_path(@page.wedding.id) %>
+
+    <% if current_user.admin? && current_user.weddings.first.id == @page.wedding.id %>
+      |&nbsp;<%= link_to t("edit"), edit_page_path(@page) %>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <% unless @page.imageurl.nil? %>
+      <img src="<%= @page.imageurl %>">
+    <% end %>
+  </div>
+</div>

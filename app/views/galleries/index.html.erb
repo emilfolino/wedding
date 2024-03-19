@@ -1,0 +1,13 @@
+<h2><%= t("log_in_to_flickr") %></h2>
+
+<p><%= t("log_in_to_flickr_to_create_gallery") %></p>
+
+
+<p><%= link_to @auth_url, @auth_url, :target => "_blank" %></p>
+
+
+<%= form_tag("/galleries/new", method: "get") do %>
+  <%= label_tag(:flickr_numbers, t("flickr_numbers")) %><br>
+  <%= text_field_tag(:flickr_numbers, nil, class: 'form-control') %><br><br>
+  <%= submit_tag(t("couple_flickr"), class: "btn btn-primary") %>
+<% end %>

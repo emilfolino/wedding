@@ -1,0 +1,82 @@
+<%= render "shared/menu" %>
+
+<h1 class="page-title"><%= t("wishlist") %></h1>
+
+<div class="gift-list">
+  <p><%= t("wishlist_explanation") %></p><br>
+  <table class="table">
+    <tbody id="gifts">
+      <% @gifts.each do |gift| %>
+        <tr id="<%= gift.id %>">
+          <td>
+          <% if current_user.admin? %>
+            <% if gift.url.empty? %>
+              <%=  gift.name %>
+            <% else %>
+              <% unless gift.url.include? "http" %>
+                <% gift.url = "http://" + gift.url %>
+              <% end %>
+              <%= link_to gift.name, gift.url, :target => "_blank" %>
+            <% end %>
+          <% else %>
+            <% if gift.url.empty? %>
+              <%= gift.get_name(@language_index) %>
+            <% else %>
+              <% unless gift.url.include? "http" %>
+                <% gift.url = "http://" + gift.url %>
+              <% end %>
+              <%= link_to gift.get_name(@language_index), gift.url, :target => "_blank" %>
+            <% end %>
+          <% end %>
+
+          </td>
+          <td id="giver-<%= gift.id %>">
+            <% if gift.wedding.user == current_user %>
+              <%= link_to gift, :method => :delete, :id => "delete-gift", :title => t("remove_gift") do %>
+                <span class="glyphicon glyphicon-remove btn-black" aria-hidden="true"></span>
+              <% end %>
+            <% else %>
+              <% if gift.can_be_given_multiple %>
+                <%= gift.multiple_users %>
+                <%= link_to t("give_gift"), {:action => "give", :id => gift.id }, :id => "give-#{gift.id}", :class => "btn btn-primary btn-xs btn-black" %>
+              <% else %>
+                <% if gift.user %>
+                  <%= gift.user.name %>
+                <% else %>
+                  <%= link_to t("give_gift"), {:action => "give", :id => gift.id }, :id => "give-#{gift.id}", :class => "btn btn-primary btn-xs btn-black" %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if current_user.id == @wedding.user.id %>
+    <%= form_for Gift.new, :html => {:id => 'gift-form'} do |f| %>
+      <%= f.hidden_field :wedding_id, :value => @wedding.id %>
+
+      <% @languages.each do |language| %>
+        <div class="form-group">
+          <label><%= t("present") + " " + language.name %></label>
+          <input type='text' name='name[<%= language.id %>]' id="name" class="form-control">
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <label>URL</label>
+        <%= f.text_field :url, :id => "url", :class => "form-control" %>
+      </div>
+      <div class="form-group">
+        <label><%= t("can_be_given_multiple") %>:</label>
+        <%= f.check_box :can_be_given_multiple, :id => "can_be_given_multiple" %>
+      </div>
+      <%= f.submit t("create_present"), :class => 'btn btn-primary', :id => 'submit-button' %>
+    <% end %>
+  <% end %>
+
+  <br style="clear:both;">
+  <p><%= link_to t("back"), @wedding %></p>
+</div>
+

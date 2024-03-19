@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  page_title: MyString
+  page_body: MyText
+  wedding_id: 
+
+two:
+  page_title: MyString
+  page_body: MyText
+  wedding_id: 

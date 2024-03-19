@@ -1,0 +1,26 @@
+<div class="container">
+  <br><br>
+  <% @own_wedding.each do |wedding| %>
+    <div class="jumbotron">
+      <h2><%= link_to wedding.title, wedding %></h2>
+      <p><i><%= wedding.wedding_date.strftime("%A den %d %B kl %H:%M") %></i></p>
+    </div>
+  <% end %>
+
+  <% @wedding_guests.each do |wedding_guest| %>
+    <div class="jumbotron">
+      <h2><%= link_to wedding_guest.wedding.title, wedding_guest.wedding %></h2>
+      <p><i><%= wedding_guest.wedding.wedding_date.strftime("%A den %d %B kl %H:%M") %></i></p>
+      <% if wedding_guest.accepted %>
+          <p><%= t("coming") %></p>
+      <% else %>
+        <%= link_to t("coming"), accept_path(wedding_guest.wedding.id), :class => 'btn btn-success' %>
+        <%= link_to t("not_coming"), deny_path(wedding_guest.wedding.id), :class => 'btn btn-primary' %>
+      <% end %>
+    </div>
+  <% end %>
+  <br><br>
+
+</div>
+
+

@@ -1,0 +1,29 @@
+<h1>Listing invitation_texts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Wedding</th>
+      <th>Language</th>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @invitation_texts.each do |invitation_text| %>
+      <tr>
+        <td><%= invitation_text.wedding %></td>
+        <td><%= invitation_text.language %></td>
+        <td><%= invitation_text.body %></td>
+        <td><%= link_to 'Show', invitation_text %></td>
+        <td><%= link_to 'Edit', edit_invitation_text_path(invitation_text) %></td>
+        <td><%= link_to 'Destroy', invitation_text, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Invitation text', new_invitation_text_path %>

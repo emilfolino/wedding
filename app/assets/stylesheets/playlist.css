@@ -1,0 +1,19 @@
+#search-result-container {
+  position:absolute;
+  top:32px;
+  background-color:white;
+  border-top: 1px solid #CCC;
+  border-left: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+}
+
+.search-result {
+  padding: 4px 12px;
+  border-bottom: 1px solid #CCC;
+  cursor:pointer;
+}
+
+.search-result-selected {
+  background-color: #3333FF;
+  color:white;
+}

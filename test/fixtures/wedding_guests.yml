@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  wedding_id: 
+  accepted: false
+
+two:
+  user_id: 
+  wedding_id: 
+  accepted: false

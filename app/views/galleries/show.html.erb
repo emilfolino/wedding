@@ -1,0 +1,12 @@
+<h1 class="gallery-title"><%= @gallery.gallery_name %></h1>
+<hr>
+<p class="gallery-description"><%= @gallery.gallery_description %></p>
+<br><br>
+<div class="gallery-images">
+  <% @photo_urls.each do |url| %>
+    <%= image_tag(url) %>
+    <br>
+  <% end %>
+</div>
+
+<p class="back-center"><%= link_to t('back'), wedding_galleries_path(@gallery.wedding_id) %></p>

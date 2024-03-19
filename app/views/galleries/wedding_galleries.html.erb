@@ -1,0 +1,16 @@
+<%= render "shared/menu" %>
+
+<h2><%= t("galleries") %></h2>
+
+<% @galleries.each do |gallery| %>
+  <%= link_to gallery.gallery_name, "https://www.flickr.com/photos/76144560@N06/albums/" + gallery.flickr_id, :target => "_blank" %><br>
+<% end %>
+<br><br>
+<% if current_user.admin? %>
+  <%= link_to t("new_gallery"), new_gallery_path, :class => "btn btn-primary" %>
+  <br><br>
+<% end %>
+
+
+
+<%= link_to t("back"), root_path %>

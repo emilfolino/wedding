@@ -1,0 +1,101 @@
+<%= render "shared/menu" %>
+
+<div class="row">
+    <% unless current_user == @wedding.user %>
+      <div class="col-sm-4 col-xs-12">
+        <% if @logged_in_guest.accepted %>
+            <p><%= t("coming") %></p>
+        <% else %>
+          <h4><%= t("choose_by_pressing") %></h4>
+          <%= link_to t("coming"), accept_wedding_invite_path(@wedding.id), :class => 'btn btn-success' %>
+          <%= link_to t("not_coming"), deny_wedding_invite_path(@wedding.id), :class => 'btn btn-primary' %>
+        <% end %>
+        <br>
+        <%= @wedding_description.body.html_safe %>
+      </div>
+      <div class="col-sm-8 col-xs-12">
+        <img src="http://www.lisaochemil.se/emblem.png" style="max-width:300px;">
+      </div>
+    <% end %>
+
+    <% if current_user == @wedding.user %>
+      <div class="col-sm-12 col-xs-12">
+        <% @languages.each do |id, language| %>
+          <%= link_to t("show_as_guest") + " (" + language + ")", as_guest_path(:wedding_id => @wedding.id, :language_id => id), :class => "btn btn-info", :target => "_blank" %>
+        <% end %>
+
+        <div class="admin-links" data-no-turbolink>
+          <h4><%= t("page_administration") %></h4>
+
+          <% @pages.each do |page| %>
+            <%= link_to page.page_title + " (" + @languages[page.language_id] + ")", edit_page_path(page) %><br>
+          <% end %>
+          <%= link_to t("wishlist"), wedding_gifts_path(@wedding.id) %><br>
+          <%= link_to t("qanda"), wedding_qanda_path(@wedding.id) %><br>
+          <%= link_to t("galleries"), wedding_galleries_path(@wedding.id) %><br>
+          <br>
+          <%= link_to t("new_page"), new_page_path, :class => "btn btn-primary" %>
+          <br>
+
+
+          <br><br>
+          <h4><%= t("invite_administration") %></h4>
+          <% @invitation_texts.each do |invitation_text| %>
+            <%= link_to @languages[invitation_text.language_id], edit_invitation_text_path(invitation_text) %><br>
+          <% end %>
+          <br>
+          <%= link_to t("show_invite"), print_invitations_path(:format => :pdf), :class => "btn btn-primary" %>
+
+          <br><br>
+          <h4><%= t("description_administration") %></h4>
+          <% @wedding_descriptions.each do |wedding_description| %>
+            <%= link_to @languages[wedding_description.language_id], edit_wedding_description_path(wedding_description) %><br>
+          <% end %>
+          <br>
+        </div>
+
+        <br>
+        <%= link_to t("logout"), destroy_user_session_path, :method => :delete %>
+      </div>
+    <% end %>
+</div>
+
+<% if current_user == @wedding.user %>
+  <div class="row" id="guests-and-presents">
+    <div class="col-sm-12 col-xs-12">
+      <h2><%= t("guests") %></h2>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th><%= t("name") %></th>
+            <th><%= t("email") %></th>
+            <th><%= t("code") %></th>
+            <th><%= t("status") %></th>
+            <th><%= t("language") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @wedding_guests.each do |wedding_guest| %>
+            <tr>
+              <td><%= wedding_guest.user.name %></td>
+              <td><%= wedding_guest.user.email %></td>
+              <td><%= wedding_guest.short_token %></td>
+              <td>
+                <% if wedding_guest.user.invitation_accepted_at %>
+                  <%= wedding_guest.accepted ? ("<span class='label label-success'>" + t("coming") + "</span>").html_safe : t("not_coming") %>
+                <% else %>
+                  <%= t("have_not_seen") %>
+                <% end %>
+              </td>
+              <td><%= @languages[wedding_guest.user.language_id] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= link_to t("new_guest_short"), new_user_invitation_path, class: "btn btn-success" %>
+    </div>
+  </div>
+<% end %>
+
+<br style="clear:both"><br>

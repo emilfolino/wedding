@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  body: MyText
+  wedding_id: 
+  language_id: 
+
+two:
+  body: MyText
+  wedding_id: 
+  language_id: 

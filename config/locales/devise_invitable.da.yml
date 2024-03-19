@@ -1,0 +1,21 @@
+da:
+  devise:
+    invitations:
+      send_instructions: 'En invitations email er blevet sendt til %{email}.'
+      invitation_token_invalid: 'Invitationens token fungerer ikke!'
+      updated: 'Dit password er gemt og du er indlogget.'
+      no_invitations_remaining: "Du har ikke flere invitationer"
+      invitation_removed: 'Din invitation er blevet fjernet.'
+      new:
+        header: "Send invitation"
+        submit_button: "Send invitationen"
+      edit:
+        header: "Sæt et valgfrit kodeord"
+        submit_button: "Sæt kodeordet"
+    mailer:
+      invitation_instructions:
+        subject: 'Invitation instructions'
+        hello: 'Hello %{email}'
+        someone_invited_you: 'Someone has invited you to %{url}, you can accept it through the link below.'
+        accept: 'Accept invitation'
+        ignore: "If you don't want to accept the invitation, please ignore this email.<br />Your account won't be created until you access the link above and set your password."

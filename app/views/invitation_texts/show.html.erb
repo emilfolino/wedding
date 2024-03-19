@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Wedding:</strong>
+  <%= @invitation_text.wedding %>
+</p>
+
+<p>
+  <strong>Language:</strong>
+  <%= @invitation_text.language %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @invitation_text.body %>
+</p>
+
+<%= link_to 'Edit', edit_invitation_text_path(@invitation_text) %> |
+<%= link_to 'Back', invitation_texts_path %>

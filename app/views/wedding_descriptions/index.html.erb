@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Wedding Descriptions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Body</th>
+      <th>Wedding</th>
+      <th>Language</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wedding_descriptions.each do |wedding_description| %>
+      <tr>
+        <td><%= wedding_description.body %></td>
+        <td><%= wedding_description.wedding %></td>
+        <td><%= wedding_description.language %></td>
+        <td><%= link_to 'Show', wedding_description %></td>
+        <td><%= link_to 'Edit', edit_wedding_description_path(wedding_description) %></td>
+        <td><%= link_to 'Destroy', wedding_description, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Wedding description', new_wedding_description_path %>

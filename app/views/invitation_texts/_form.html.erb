@@ -1,0 +1,43 @@
+<%= form_for(@invitation_text) do |f| %>
+  <% if @invitation_text.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@invitation_text.errors.count, "error") %> prohibited this invitation_text from being saved:</h2>
+
+      <ul>
+      <% @invitation_text.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h4>Språk: <%= @languages[@invitation_text.language_id] %></h4>
+
+  <div class="field">
+    <label>Text på insidan (Gästen är par)</label><br>
+    <%= f.text_area( :front_body, cols: 20, rows: 10, class: 'form-control') %>
+  </div>
+  <br>
+  <div class="field">
+    <label>Text på baksidan (Gästen är par)</label><br>
+    <%= f.text_area( :back_body, cols: 20, rows: 10, class: 'form-control') %>
+  </div>
+
+  <br><br>
+
+  <div class="field">
+    <label>Text på insidan (Gästen är single)</label><br>
+    <%= f.text_area( :single_front_body, cols: 20, rows: 10, class: 'form-control') %>
+  </div>
+  <br>
+  <div class="field">
+    <label>Text på baksidan (Gästen är single)</label><br>
+    <%= f.text_area( :single_back_body, cols: 20, rows: 10, class: 'form-control') %>
+  </div>
+
+
+  <br style="clear:both">
+  <div class="actions">
+    <%= f.submit "Spara", class: "btn btn-primary pull-right" %>
+  </div>
+<% end %>

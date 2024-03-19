@@ -1,0 +1,2 @@
+module QandaHelper
+end

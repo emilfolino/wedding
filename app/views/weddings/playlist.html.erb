@@ -1,0 +1,26 @@
+<%= render "shared/menu" %>
+
+<div class="row">
+  <div class="col-sm-6">
+    <label><%= t("search_for_song").html_safe %></label>
+
+    <div style="position:relative;">
+      <input type="text" id="search-song" class="form-control" autocomplete="off">
+      <div id="search-result-container" style="display:none;"></div>
+    </div>
+
+    <%= hidden_field_tag 'wedding_id', @wedding.id %>
+    <br>
+
+    <div id="playlist-tracks">
+      <% @playlist.tracks.each do |track| %>
+        <%= track.name %> - <%= track.artists.first.name %><br>
+      <% end %>
+    </div>
+    <br>
+    <p><%= link_to t("back"), root_path %></p>
+
+  </div>
+</div>
+
+

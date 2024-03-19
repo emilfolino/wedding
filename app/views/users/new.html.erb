@@ -1,0 +1,22 @@
+<h2>Ny gäst till <%= @wedding.title %></h2>
+
+
+<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
+  <%= devise_error_messages! %>
+
+  <% resource.class.invite_key_fields.each do |field| -%>
+    <p><%= f.label field %><br />
+    <%= f.text_field field, class: "form-control" %></p>
+  <% end -%>
+
+  <p><b>Namn</b>
+  <%= text_field_tag :name, nil, class: "form-control" %></p>
+
+  <p><b>Språk</b><br>
+    <% @languages.each do |language| %>
+      <%= radio_box_tag("language", language.id)) %> <%= language.name %><br>
+    <% end %>
+  </p>
+
+  <p><%= f.submit t("devise.invitations.new.submit_button"), class: "btn btn-success" %></p>
+<% end %>

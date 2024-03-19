@@ -1,0 +1,21 @@
+<%= form_for(@wedding_description) do |f| %>
+  <% if @wedding_description.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@wedding_description.errors.count, "error") %> prohibited this wedding_description from being saved:</h2>
+
+      <ul>
+      <% @wedding_description.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label t("description") %><br>
+    <%= f.text_area :body, class: "form-control ckeditor" %>
+  </div><br>
+  <div class="actions">
+    <%= f.submit t("save"), class: "btn btn-primary" %>
+  </div>
+<% end %>

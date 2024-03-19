@@ -1,0 +1,39 @@
+<%= render "shared/menu" %>
+
+<h1 class="page-title"><%= t("qanda") %></h1>
+<% @qandas.each do |qanda| %>
+  <div class="well">
+    <h4><%= qanda["body"] %></h4>
+
+    <p><%= link_to "Svara", "#", :id => "question-#{qanda["id"]}", :class =>"answer-question pull-right" %></p>
+    <br style="clear:both;">
+
+    <% qanda["answers"].each do |answer| %>
+      <hr>
+      <p class="answer"><%= answer.body %></p>
+    <% end %>
+
+    <div style="display:none;" id="answer-<%= qanda["id"] %>">
+      <%= form_for Qanda.new, :html => { :id => 'qanda-form' } do |f| %>
+        <%= f.hidden_field :wedding_id, :value => @wedding.id %>
+        <%= f.hidden_field :parent_id, :value => qanda["id"] %>
+        <div class="form-group">
+          <%= f.text_area :body, :id => "body", :class => "form-control", :placeholder => t("answer") %>
+        </div>
+        <%= f.submit t("answer"), :class => 'btn btn-primary', :id => 'submit-button' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= form_for Qanda.new, :html => { :id => 'qanda-form' } do |f| %>
+  <%= f.hidden_field :wedding_id, :value => @wedding.id %>
+  <div class="form-group">
+    <%= f.text_area :body, :id => "body", :class => "form-control", :placeholder => t("question") %>
+  </div>
+  <%= f.submit t("ask_question"), :class => 'btn btn-primary', :id => 'submit-button' %>
+<% end %>
+
+<br style="clear:both;">
+
+<%= link_to t("back"), root_path %>

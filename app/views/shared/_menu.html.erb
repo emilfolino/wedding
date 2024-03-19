@@ -1,0 +1,21 @@
+<% unless current_user == @wedding.user %>
+  <div class="menu-toggle pull-right">
+    <span class="menu-bar"></span>
+    <span class="menu-bar"></span>
+    <span class="menu-bar"></span>
+  </div>
+
+  <ul class="page-menu" id="top-menu">
+    <% @pages.each do |page| %>
+      <li class="page-link"><%= link_to page.page_title, page %></li>
+    <% end %>
+    <li class="page-link"><%= link_to t("galleries"), wedding_galleries_path(@wedding.id) %></li>
+    <li class="page-link"><%= link_to t("wishlist"), wedding_gifts_path(@wedding.id) %></li>
+    <li class="page-link"><%= link_to t("playlist"), playlist_path(@wedding.id) %></li>
+    <li class="page-link"><%= link_to t("qanda"), wedding_qanda_path(@wedding.id) %></li>
+    <% if current_user %>
+      <li class="page-link"><%= link_to t("logout"), destroy_user_session_path, :method => :delete %></li>
+    <% end %>
+  </ul>
+  <br style="clear:both;">
+<% end %>

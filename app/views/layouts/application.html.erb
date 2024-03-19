@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Weddinglist" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Weddinglist" %>">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag "i18n" %>
+    <%= javascript_include_tag "translations" %>
+    <%= javascript_tag do %>
+      I18n.defaultLocale = "<%= I18n.default_locale %>";
+      I18n.locale = "<%= I18n.locale %>";
+    <% end %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+
+    <%= render 'layouts/messages' %>
+
+    <% unless @wedding.nil? || @wedding.image_url.to_s == "" %>
+      <div class="image-container">
+        <%= image_tag @wedding.image_url.to_s %>
+
+        <div class="image-container-text">
+          <h1 class="wedding-title"><%= @wedding.title + " " + t("wedding") %></h1>
+          <p class="date-text"><%= t("we_will_marry") %> <%= l(@wedding.wedding_date, format: :long) %></p>
+        </div>
+      </div>
+      <br style="clear:both;">
+    <% end %>
+
+    <div class="container">
+      <%= yield %>
+    </div>
+
+  </body>
+</html>

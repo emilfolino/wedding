@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @wedding_description.body %>
+</p>
+
+<p>
+  <strong>Wedding:</strong>
+  <%= @wedding_description.wedding %>
+</p>
+
+<p>
+  <strong>Language:</strong>
+  <%= @wedding_description.language %>
+</p>
+
+<%= link_to 'Edit', edit_wedding_description_path(@wedding_description) %> |
+<%= link_to 'Back', wedding_descriptions_path %>
